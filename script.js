@@ -54,18 +54,55 @@ const win = (playerSelection, computerSelection) => {
 const feed = document.querySelector('#feed');
 const scoreboard = document.querySelector('#scoreboard');
 
-const displayResult = document.createElement('div');
+const displayResult = document.createElement('h3');
 displayResult.classList.add('results');
+displayResult.setAttribute('style', 'white-space: pre;');
 
-const displayScore = document.createElement('div');
-displayResult.classList.add('scoreboard');
+const displayScore = document.createElement('h2');
+displayScore.classList.add('scoreboard');
+displayScore.setAttribute('style', 'white-space: pre;');
+
+const history = document.querySelector('#history');
+
+const container = document.querySelector('#container');
+
+let playerScore = 0;
+let computerScore = 0;
 
 const selectRock = document.querySelector('#rock');
 selectRock.addEventListener('click', () => {
     const computerSelection = computerPlay();
     console.log(playRound('Rock', computerSelection));
     displayResult.textContent = playRound('Rock', computerSelection);
+
+    const status = document.createElement('h4');
+
+    if(displayResult.textContent.includes('win')) {
+        playerScore++;
+        status.textContent += `Win - `;
+    }
+    if(displayResult.textContent.includes('lose')) {
+        computerScore++;
+        status.textContent += `Lose - `;
+    }
+    if(displayResult.textContent.includes('tie')) {
+        playerScore++;
+        computerScore++;
+        status.textContent += `Tie - `;
+    }
+
+    status.textContent += `You picked 'Rock' and the computer picked '${computerSelection}' ${playerScore} - ${computerScore}`;
+
+    displayScore.textContent = `Player: ${playerScore}\r\nComputer: ${computerScore}`;
+
     feed.appendChild(displayResult);
+    scoreboard.appendChild(displayScore);
+    history.appendChild(status);
+
+    if(playerScore === 5 || computerScore === 5) {
+        updateScoreboard(container);
+        finalResult(playerScore, computerScore);
+    }
 });
 
 const selectPaper = document.querySelector('#paper');
@@ -73,7 +110,35 @@ selectPaper.addEventListener('click', () => {
     const computerSelection = computerPlay();
     console.log(playRound('Paper', computerSelection));
     displayResult.textContent = playRound('Paper', computerSelection);
+
+    const status = document.createElement('h4');
+
+    if(displayResult.textContent.includes('win')) {
+        playerScore++;
+        status.textContent += `Win - `;
+    }
+    if(displayResult.textContent.includes('lose')) {
+        computerScore++;
+        status.textContent += `Lose - `;
+    }
+    if(displayResult.textContent.includes('tie')) {
+        playerScore++;
+        computerScore++;
+        status.textContent += `Tie - `;
+    }
+
+    status.textContent += `You picked 'Paper' and the computer picked '${computerSelection}' ${playerScore} - ${computerScore}`;
+
+    displayScore.textContent = `Player: ${playerScore}\r\nComputer: ${computerScore}`;
+
     feed.appendChild(displayResult);
+    scoreboard.appendChild(displayScore);
+    history.appendChild(status);
+
+    if(playerScore === 5 || computerScore === 5) {
+        updateScoreboard(container);
+        finalResult(playerScore, computerScore);
+    }
 });
 
 const selectScissors = document.querySelector('#scissors');
@@ -81,12 +146,69 @@ selectScissors.addEventListener('click', () => {
     const computerSelection = computerPlay();
     console.log(playRound('scissors', computerSelection));
     displayResult.textContent = playRound('scissors', computerSelection);
+
+    const status = document.createElement('h4');
+
+    if(displayResult.textContent.includes('win')) {
+        playerScore++;
+        status.textContent += `Win - `;
+    }
+    if(displayResult.textContent.includes('lose')) {
+        computerScore++;
+        status.textContent += `Lose - `;
+    }
+    if(displayResult.textContent.includes('tie')) {
+        playerScore++;
+        computerScore++;
+        status.textContent += `Tie - `;
+    }
+
+    status.textContent += `You picked 'Scissors' and the computer picked '${computerSelection}' ${playerScore} - ${computerScore}`;
+
+    displayScore.textContent = `Player: ${playerScore}\r\nComputer: ${computerScore}`;
+
     feed.appendChild(displayResult);
+    scoreboard.appendChild(displayScore);
+    history.appendChild(status);
+
+    if(playerScore === 5 || computerScore === 5) {
+        updateScoreboard(container);
+        finalResult(playerScore, computerScore);
+    }
 });
 
-const game = () => {
+function updateScoreboard(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 
-/*     let playerScore = 0;
+function finalResult(player, computer) {
+    const finalScore = document.createElement('h2');
+    finalScore.setAttribute('style', 'white-space: pre;');
+    finalScore.textContent = `Results:\r\nPlayer: ${player}\r\nComputer: ${computer}\r\n`;
+    if (player > computer) {
+        finalScore.textContent += `Congrats! You win!`;
+    } else if (player < computer) {
+        finalScore.textContent += `Sorry! You lose!`;
+    } else if (player === computer) {
+        finalScore.textContent += `Wow, you tied?`
+    }
+    container.appendChild(finalScore);
+
+    const tryAgain = document.createElement('button');
+    tryAgain.textContent = `Try Again?`;
+    tryAgain.addEventListener('click', () => {
+        window.location.reload();
+    })
+    
+    container.appendChild(tryAgain);
+}
+
+
+/* const game = () => {
+
+    let playerScore = 0;
     let computerScore = 0;
     let finalScoreMessage = "";
 
@@ -113,5 +235,5 @@ const game = () => {
         finalScoreMessage = "It's a tie!"
     }
     console.log(`Final score: Player, ${playerScore} to Computer, ${computerScore}
-    ${finalScoreMessage}`) */
-}
+    ${finalScoreMessage}`) 
+} */
