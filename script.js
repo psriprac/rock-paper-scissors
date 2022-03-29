@@ -66,11 +66,14 @@ const history = document.querySelector('#history');
 
 const container = document.querySelector('#container');
 
+const rules = document.querySelector('#rules');
+
 let playerScore = 0;
 let computerScore = 0;
 
 const selectRock = document.querySelector('#rock');
 selectRock.addEventListener('click', () => {
+    rules.remove();
     const computerSelection = computerPlay();
     console.log(playRound('Rock', computerSelection));
     displayResult.textContent = playRound('Rock', computerSelection);
@@ -86,8 +89,6 @@ selectRock.addEventListener('click', () => {
         status.textContent += `Lose - `;
     }
     if(displayResult.textContent.includes('tie')) {
-        playerScore++;
-        computerScore++;
         status.textContent += `Tie - `;
     }
 
@@ -107,6 +108,7 @@ selectRock.addEventListener('click', () => {
 
 const selectPaper = document.querySelector('#paper');
 selectPaper.addEventListener('click', () => {
+    rules.remove();
     const computerSelection = computerPlay();
     console.log(playRound('Paper', computerSelection));
     displayResult.textContent = playRound('Paper', computerSelection);
@@ -122,8 +124,6 @@ selectPaper.addEventListener('click', () => {
         status.textContent += `Lose - `;
     }
     if(displayResult.textContent.includes('tie')) {
-        playerScore++;
-        computerScore++;
         status.textContent += `Tie - `;
     }
 
@@ -143,6 +143,7 @@ selectPaper.addEventListener('click', () => {
 
 const selectScissors = document.querySelector('#scissors');
 selectScissors.addEventListener('click', () => {
+    rules.remove();
     const computerSelection = computerPlay();
     console.log(playRound('scissors', computerSelection));
     displayResult.textContent = playRound('scissors', computerSelection);
@@ -158,8 +159,6 @@ selectScissors.addEventListener('click', () => {
         status.textContent += `Lose - `;
     }
     if(displayResult.textContent.includes('tie')) {
-        playerScore++;
-        computerScore++;
         status.textContent += `Tie - `;
     }
 
@@ -186,7 +185,7 @@ function updateScoreboard(parent) {
 function finalResult(player, computer) {
     const finalScore = document.createElement('h2');
     finalScore.setAttribute('style', 'white-space: pre;');
-    finalScore.textContent = `Results:\r\nPlayer: ${player}\r\nComputer: ${computer}\r\n`;
+    finalScore.textContent = `Player: ${player}\r\nComputer: ${computer}\r\n`;
     if (player > computer) {
         finalScore.textContent += `Congrats! You win!`;
     } else if (player < computer) {
@@ -194,7 +193,6 @@ function finalResult(player, computer) {
     } else if (player === computer) {
         finalScore.textContent += `Wow, you tied?`
     }
-    container.appendChild(finalScore);
 
     const tryAgain = document.createElement('button');
     tryAgain.textContent = `Try Again?`;
@@ -203,6 +201,7 @@ function finalResult(player, computer) {
     })
     
     container.appendChild(tryAgain);
+    container.appendChild(finalScore);
 }
 
 
