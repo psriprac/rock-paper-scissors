@@ -51,8 +51,42 @@ const win = (playerSelection, computerSelection) => {
     return `${playerSelection} beats ${computerSelection}! you win!`;
 }
 
+const feed = document.querySelector('#feed');
+const scoreboard = document.querySelector('#scoreboard');
+
+const displayResult = document.createElement('div');
+displayResult.classList.add('results');
+
+const displayScore = document.createElement('div');
+displayResult.classList.add('scoreboard');
+
+const selectRock = document.querySelector('#rock');
+selectRock.addEventListener('click', () => {
+    const computerSelection = computerPlay();
+    console.log(playRound('Rock', computerSelection));
+    displayResult.textContent = playRound('Rock', computerSelection);
+    feed.appendChild(displayResult);
+});
+
+const selectPaper = document.querySelector('#paper');
+selectPaper.addEventListener('click', () => {
+    const computerSelection = computerPlay();
+    console.log(playRound('Paper', computerSelection));
+    displayResult.textContent = playRound('Paper', computerSelection);
+    feed.appendChild(displayResult);
+});
+
+const selectScissors = document.querySelector('#scissors');
+selectScissors.addEventListener('click', () => {
+    const computerSelection = computerPlay();
+    console.log(playRound('scissors', computerSelection));
+    displayResult.textContent = playRound('scissors', computerSelection);
+    feed.appendChild(displayResult);
+});
+
 const game = () => {
-    let playerScore = 0;
+
+/*     let playerScore = 0;
     let computerScore = 0;
     let finalScoreMessage = "";
 
@@ -79,5 +113,5 @@ const game = () => {
         finalScoreMessage = "It's a tie!"
     }
     console.log(`Final score: Player, ${playerScore} to Computer, ${computerScore}
-    ${finalScoreMessage}`)
+    ${finalScoreMessage}`) */
 }
